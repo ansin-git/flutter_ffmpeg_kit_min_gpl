@@ -45,23 +45,36 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    //获取local.properties配置文件
-    def localProperties = new Properties()
-    def localPropertiesFile = rootProject.file('local.properties')
-    if (localPropertiesFile.exists()) {
-        localPropertiesFile.withReader('UTF-8') { reader ->
-            localProperties.load(reader)
-        }
-    }
-    //获取flutter的sdk路径
-    def flutterRoot = localProperties.getProperty('flutter.sdk')
-    if (flutterRoot == null) {
-        throw new RuntimeException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
-    }
+    // //获取local.properties配置文件
+    // def localProperties = new Properties()
+    // def localPropertiesFile = rootProject.file('local.properties')
+    // if (localPropertiesFile.exists()) {
+    //     localPropertiesFile.withReader('UTF-8') { reader ->
+    //         localProperties.load(reader)
+    //     }
+    // }
+    // //获取flutter的sdk路径
+    // def flutterRoot = localProperties.getProperty('flutter.sdk')
+    // if (flutterRoot == null) {
+    //     throw new RuntimeException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
+    // }
 }
 
 dependencies {
     implementation 'androidx.annotation:annotation:1.5.0'
-    implementation files('./libs/ffmpeg-kit-min-gpl-6.0-2.aar')
+//start:ffmpeg-kit-https
+//    implementation 'com.arthenica:ffmpeg-kit-https:6.0-2'
+//    FmpegKit has been officially retired.Place dependent libraries locally
+//    The Maven configuration is immutable and currently not required; it’s retained solely as a precaution.
+    implementation files('./libs/ffmpeg-kit-https-6.0-2.aar')
+
+//start:    smart-exception-java
+    implementation files('./libs/smart-exception-java-0.2.1.jar')
+    implementation files('./libs/smart-exception-common-0.2.1.jar')
+//    or
+//    implementation 'com.arthenica:smart-exception-java:0.2.1'
+//end:    smart-exception-java
+
+//end:ffmpeg-kit-https
 }
 
